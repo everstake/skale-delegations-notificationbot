@@ -4,9 +4,8 @@ This simple script check delegations statuses of SKALE validator and notifies th
 ### Prerequisites
 
 * curl
-* jq
 ```
-sudo apt-get install curl jq
+sudo apt-get install curl
 ```
 ### Installing
 
