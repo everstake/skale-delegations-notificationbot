@@ -10,14 +10,17 @@ delegate_check ()
 {
    for STATUS in $STATUSES; do
       DELEGATIONS=$(sk-val validator delegations $VALID | grep "$STATUS" | awk '{print $3}' | sed 's/$/\n/');
-      NUM=$(sk-val validator delegations $VALID | grep "$STATUS" | sed 's/$/\n/');
-         if [ -z $DELEGATIONS ]; then
+      for DEL in $DELEGATIONS; do
+         NUM=$(sk-val validator delegations $VALID | grep "$DEL" | sed 's/$/\n/');
+         if [ -z $DEL ]; then
             :
-         elif [ "$DELEGATIONS" == "PROPOSED" ]; then
+         elif [ "$DEL" == "PROPOSED" ]; then
             sendmessage "👀 NEW SKALE DELEGATIONS %0A%0A $NUM"
-         elif [ "$DELEGATIONS" == "UNDELEGATION_REQUESTED" ]; then 
+         elif [ "$DEL" == "UNDELEGATION_REQUESTED" ]; then 
             sendmessage "👀 NEW SKALE UNDELEGATIONS %0A%0A $NUM"
          fi
+         break
+      done       
    done
 }
 
